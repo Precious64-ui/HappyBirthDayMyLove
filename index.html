@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For You ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- MUSIC -->
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SCREEN 1 -->
+<div class="card" id="screen1">
+  <h1>Hey love ❤️</h1>
+  <p>Can I make today special for you?</p>
+  <div class="btn-row" id="btnRow">
+    <button class="yes-btn" onclick="goApology()">Yes</button>
+    <button class="no-btn" id="noBtn">No</button>
+  </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="card hidden" id="screen2">
+  <h1>I’m Truly Sorry 💔</h1>
+  <p>
+    Before today ends, I want to say this clearly.
+I know I’m not perfect. I know I’ve made mistakes.
+But my feelings for you have never been a mistake.
+I’m sorry for the moments I wasn’t enough.
+I’m sorry for the times I let my pride speak louder than my love.
+You deserve consistency, effort, peace, and someone who shows up fully —
+not just with words, but with actions.
+I may not have money right now to buy everything I wish I could give you,
+but I’m building myself so that one day I can give you stability, comfort,
+and the kind of love that feels safe and certain.
+  </p>
+</p>
+
+  <div class="section">
+    <h3>This year, I promise to:</h3>
+    <ul>
+      <li>Communicate better</li>
+    <li>Control my temper and jealousy</li>
+    <li>  Be more intentional with my actions</li>
+    </li>Support your dreams the same way I chase mine</li>
+  
+  <ul>I don’t just want today with you.
+I want growth with you.
+Happy Birthday, my love.
+Happy Valentine’s Day.
+And thank you for still being here.
+    </ul>
+  </div>
+
+  <button class="send-btn" onclick="goWish()">Continue ❤️</button>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="card hidden" id="screen3">
+  <h1>Happy Birthday & Happy Valentine’s Day 🎂❤️</h1>
+  <p>
+    Today is special because it’s your birthday and Valentine’s Day — and I just want you to know
+    how grateful I am for you.
+  </p>
+  <p>
+    I don’t really have money today, but I promise I’ll spoil you soon and make it up to you properly.
+  </p>
+  <button class="send-btn" onclick="goGift()">Open Your Gifts 🎁</button>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="card hidden" id="screen4">
+  <h1>Your Gift ❤️</h1>
+
+  <div class="gift-container">
+    <div class="heart-box" id="giftBox" onclick="openBox()">
+      <div class="lid" id="lid"></div>
+    </div>
+
+    <div class="box-inside hidden" id="insideBox">
+      <div class="tissue" id="tissue"></div>
+      <div class="match" onclick="burnTissue()"></div>
+      <p>Tap the match 🔥</p>
+      <div class="flower" id="flower">🌹</div>
+    </div>
+  </div>
+
+  <button class="send-btn" onclick="goCake()">Next 🎂</button>
+</div>
+
+<!-- SCREEN 5 -->
+<div class="card hidden" id="screen5">
+  <h1>Make a Wish 💖</h1>
+  <div class="cake">
+    <div class="candle">
+      <div class="flame" id="flame"></div>
+    </div>
+  </div>
+  <button class="send-btn" onclick="blowCandle()">Blow Candle 💨</button>
+
+  <div class="section hidden" id="wishDone">
+    <h3>Wish Granted ✨</h3>
+    <p>I hope today makes you smile the way you make me smile.</p>
+
+    <h3>Send Me a Message 💌</h3>
+    <textarea id="feedback" rows="4" placeholder="Type here..."></textarea>
+    <button class="send-btn" onclick="sendWhatsApp()">Send on WhatsApp 💬</button>
+  </div>
+</div>
+
+<script>
+  
+/* FLOATING HEARTS */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 10 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 700);
+
+/* MUSIC */
+let playing = false;
+function toggleMusic(){
+  const music = document.getElementById("bgMusic");
+  if(!playing){ music.play(); playing = true; }
+  else{ music.pause(); playing = false; }
+}
+
+/* NO BUTTON RUN */
+const noBtn = document.getElementById("noBtn");
+const btnRow = document.getElementById("btnRow");
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+function moveNo(){
+  const maxX = btnRow.clientWidth - noBtn.offsetWidth;
+  const maxY = btnRow.clientHeight - noBtn.offsetHeight;
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+}
+
+/* NAVIGATION */
+function goApology(){
+  screen1.classList.add("hidden");
+  screen2.classList.remove("hidden");
+}
+function goWish(){
+  screen2.classList.add("hidden");
+  screen3.classList.remove("hidden");
+}
+function goGift(){
+  screen3.classList.add("hidden");
+  screen4.classList.remove("hidden");
+}
+function goCake(){
+  screen4.classList.add("hidden");
+  screen5.classList.remove("hidden");
+}
+
+/* GIFT BOX */
+function openBox(){
+  document.getElementById("giftBox").classList.add("open");
+  document.getElementById("insideBox").classList.remove("hidden");
+}
+function burnTissue(){
+  const tissue = document.getElementById("tissue");
+  tissue.classList.add("burn");
+  setTimeout(() => {
+    tissue.style.display = "none";
+    document.getElementById("flower").style.display = "block";
+  }, 1500);
+}
+
+/* CAKE */
+function blowCandle(){
+  document.getElementById("flame").style.display = "none";
+  document.getElementById("wishDone").classList.remove("hidden");
+}
+
+/* WHATSAPP */
+function sendWhatsApp(){
+  const text = document.getElementById("feedback").value.trim();
+  if(!text){ alert("Write something first ❤️"); return; }
+  const yourNumber = "0532402956"; // <-- replace with your WhatsApp number (no +)
+  const encoded = encodeURIComponent(text);
+  window.open(`https://wa.me/${yourNumber}?text=${encoded}`, "_blank");
+}
+
+</script>
+
+</body>
+</html>
